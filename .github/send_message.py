@@ -62,6 +62,6 @@ blocks = [
 
 client.chat_postMessage(
     channel=CHANNEL,
-    text="PR info"
+    text="PR info",
     blocks=blocks
 )
