@@ -1,0 +1,31 @@
+name: Alert
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          PR_NUMBER: ${{github.event.number}}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          echo "$PR_NUMBER"
+
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+      - name: Install slack bot dependencies
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          CHANNEL: "#npn-github-action"
+        run: |
+          pip install slack_sdk aiohttp
+          echo "$CHANNEL"
+          python .github/send_message.py "$GITHUB_CONTEXT"
