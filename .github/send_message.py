@@ -9,6 +9,8 @@ CHANNEL = "#npn-github-action"
 SLACK_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
+print("Any code can be executed")
+
 client = WebClient(SLACK_TOKEN)
 github_context = json.loads(sys.argv[1])
 
